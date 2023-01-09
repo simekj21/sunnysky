@@ -1,5 +1,5 @@
 <template>
-    <div class=" mx-1 flex flex-col gap-y-1 items-stretch bg-slate-500">
+    <div class="mx-1 flex flex-col gap-y-1 items-stretch bg-slate-500">
         <div class="flex flex-col gap-y-2 sticky top-0 bg-slate-500">
             <div class="flex flex-row justify-between font-bold  text-4xl text-red-600 p-4 rounded-md bg-slate-600">
                 <svg 
