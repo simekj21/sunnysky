@@ -1,78 +1,82 @@
 <template>
-    <div class="mx-1 flex flex-col gap-y-1 items-stretch bg-slate-500">
-        <div class="flex flex-row justify-between font-bold  text-4xl text-red-600
-                p-4 rounded-md bg-slate-600">
-            <svg 
-                @click="toggleParams()" 
-                class="cursor-pointer self-center" 
-                style="width:50px;height:50px" 
-                viewBox="0 0 30 30"
-            >
-                <path fill="red" d="M15,5H17V3H15M15,13H17V11H15M15,21H17V19H15M11,5H13V3H11M19,5H21V3H19M11,9H13V7H11M19,9H21V7H19M19,21H21V19H19M19,13H21V11H19M19,17H21V15H19M11,13H13V11H11M3,5H5V3H3M3,9H5V7H3M3,13H5V11H3M3,17H5V15H3M3,21H5V19H3M11,21H13V19H11M11,17H13V15H11M7,21H9V19H7M7,13H9V11H7M7,5H9V3H7V5Z" />
-            </svg>
-            <h1>Sunny Sky</h1>
-            <h1 class="text-sm self-center">{{ weatherData.city_name }}</h1>
-        </div>
-        
-        <div class="
-            flex flex-row justify-start            
-            font-bold  text-4xl text-pink-600
-            p-4 rounded-md bg-slate-600
-        ">
-            <svg 
-                v-for="(param, index) in params" :key="index"
-                @click="param.show = !param.show" 
-                class="cursor-pointer" style="width:50px;height:50px" viewBox="0 0 30 30"
-            >
-                <path :fill="param.show ? 'deepskyblue' : 'gray'" :d="param.svg" />
-            </svg>
-        </div>
-        
-        <div class="flex flex-col gap-1 items-stretch">
-            <div 
-                v-for="(day, index) in weatherData.data" :key="index"
-                class="
-                    p-4 flex flex-row items-center flex-wrap gap-1
-                    rounded-md bg-slate-600
-                "
-            >
-                <div class="flex flex-col items-center">
-                    <h1 class="mb-2 p-1 text-xl text-pink-400">
-                        {{ getDay(index) }} 
-                    </h1>    
-                    <h2 class="mb-2 p-1 text-sm text-white bg-slate-500">
-                        {{ day.datetime }}
-                    </h2>    
-                    <h2 class="mb-2 p-1 text-xs text-white bg-slate-500">
-                        {{ getSunset(day.sunset_ts) }}
-                    </h2>    
-                </div>
-
-                <img 
-                    :src="getIconUrl(index)"
-                    width="70"
-                    class=""
+    <div class=" mx-1 flex flex-col gap-y-1 items-stretch bg-slate-500">
+        <div class="flex flex-col gap-y-2 sticky top-0 bg-slate-500">
+            <div class="flex flex-row justify-between font-bold  text-4xl text-red-600
+                    p-4 rounded-md bg-slate-600">
+                <svg 
+                    @click="toggleParams()" 
+                    class="cursor-pointer self-center" 
+                    style="width:50px;height:50px" 
+                    viewBox="0 0 30 30"
                 >
-
-                <div class="flex flex-row justify-center gap-x-3">
-                    <h1 class="mt-3 p-2 text-sm rounded bg-blue-400 text-white font-bold">
-                        {{ day.min_temp }}&#176;
-                    </h1>    
-                    <h1 class="mt-3 p-2 outline-double outline-offset-1 outline-blue-400 rounded text-white font-bold">
-                        {{ day.temp }}&#176; 
-                    </h1>    
-                    <h1 class="mt-3 p-2 text-sm rounded bg-red-400 text-white font-bold">
-                        {{ day.max_temp }}&#176;
-                    </h1>    
-                </div>
-
-                <div 
+                    <path fill="red" d="M15,5H17V3H15M15,13H17V11H15M15,21H17V19H15M11,5H13V3H11M19,5H21V3H19M11,9H13V7H11M19,9H21V7H19M19,21H21V19H19M19,13H21V11H19M19,17H21V15H19M11,13H13V11H11M3,5H5V3H3M3,9H5V7H3M3,13H5V11H3M3,17H5V15H3M3,21H5V19H3M11,21H13V19H11M11,17H13V15H11M7,21H9V19H7M7,13H9V11H7M7,5H9V3H7V5Z" />
+                </svg>
+                <h1>Sunny Sky</h1>
+                <h1 class="text-sm self-center">{{ weatherData.city_name }}</h1>
+            </div>
+            
+            <div class="
+                flex flex-row justify-start            
+                font-bold  text-4xl text-pink-600
+                p-4 rounded-md bg-slate-600
+            ">
+                <svg 
                     v-for="(param, index) in params" :key="index"
-                    class="flex flex-row justify-center gap-x-1"
+                    @click="param.show = !param.show" 
+                    class="cursor-pointer" style="width:50px;height:50px" viewBox="0 0 30 30"
                 >
-                    <h1 v-show="param.show" class="bg-slate-400 cursor-pointer mt-3 p-2 text-xs rounded-full text-white">
-                        {{ day[param.key] }}{{ param.unit }}
-                    </h1>  
+                    <path :fill="param.show ? 'deepskyblue' : 'gray'" :d="param.svg" />
+                </svg>
+            </div>
+        </div>
+
+        <div class="overflow-hidden">
+            <div class="flex flex-col gap-1 items-stretch">
+                <div 
+                    v-for="(day, index) in weatherData.data" :key="index"
+                    class="
+                        p-4 flex flex-row items-center flex-wrap gap-1
+                        rounded-md bg-slate-600
+                    "
+                >
+                    <div class="flex flex-col items-center">
+                        <h1 class="mb-2 p-1 text-xl text-pink-400">
+                            {{ getDay(index) }} 
+                        </h1>    
+                        <h2 class="mb-2 p-1 text-sm text-white bg-slate-500">
+                            {{ day.datetime }}
+                        </h2>    
+                        <h2 class="mb-2 p-1 text-xs text-white bg-slate-500">
+                            {{ getSunset(day.sunset_ts) }}
+                        </h2>    
+                    </div>
+
+                    <img 
+                        :src="getIconUrl(index)"
+                        width="70"
+                        class=""
+                    >
+
+                    <div class="flex flex-row justify-center gap-x-3">
+                        <h1 class="mt-3 p-2 text-sm rounded bg-blue-400 text-white font-bold">
+                            {{ day.min_temp }}&#176;
+                        </h1>    
+                        <h1 class="mt-3 p-2 outline-double outline-offset-1 outline-blue-400 rounded text-white font-bold">
+                            {{ day.temp }}&#176; 
+                        </h1>    
+                        <h1 class="mt-3 p-2 text-sm rounded bg-red-400 text-white font-bold">
+                            {{ day.max_temp }}&#176;
+                        </h1>    
+                    </div>
+
+                    <div 
+                        v-for="(param, index) in params" :key="index"
+                        class="flex flex-row justify-center gap-x-1"
+                    >
+                        <h1 v-show="param.show" class="bg-slate-400 cursor-pointer mt-3 p-2 text-xs rounded-full text-white">
+                            {{ day[param.key] }}{{ param.unit }}
+                        </h1>  
+                    </div>
                 </div>
             </div>
         </div>
