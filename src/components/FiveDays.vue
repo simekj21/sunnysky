@@ -38,43 +38,50 @@
                         rounded-md bg-slate-600
                     "
                 >
-                    <div class="flex flex-col items-center">
-                        <h1 class="mb-2 p-1 text-xl text-pink-400">
-                            {{ getDay(index) }} 
+                    <div class="flex flex-row items-center justify-center gap-x-4">
+                        <h1 class="text-xl text-pink-400">
+                            {{ getDay(index) }} >
                         </h1>    
-                        <h2 class="mb-2 p-1 text-sm text-white bg-slate-500">
+                        <h2 class="text-sm text-white font-bold">
                             {{ day.datetime }}
                         </h2>    
-                        <h2 class="mb-2 p-1 text-xs text-white bg-slate-500">
-                            {{ getSunset(day.sunset_ts) }}
+                        <h2 class="text-xs text-white ">
+                            &#9737; {{ getSunset(day.sunrise_ts) }}
+                        </h2>    
+                        <h2 class="text-xs text-white ">
+                            &#9790; {{ getSunset(day.sunset_ts) }}
                         </h2>    
                     </div>
 
-                    <img 
-                        :src="getIconUrl(index)"
-                        width="70"
-                    >
+                    
+                    <div class="flex flex-col items-start">
+                        <div class="flex flex-row items-center gap-x-3">
+                                <img 
+                                    :src="getIconUrl(index)"
+                                    width="60"
+                                >
+                                <h1 class="mt-3 p-2 text-sm rounded bg-blue-400 text-white font-bold">
+                                    {{ day.min_temp }}&#176;
+                                </h1>    
+                                <h1 class="mt-3 p-2 outline-double outline-offset-1 outline-blue-400 rounded text-white font-bold">
+                                    {{ day.temp }}&#176; 
+                                </h1>    
+                                <h1 class="mt-3 p-2 text-sm rounded bg-red-400 text-white font-bold">
+                                    {{ day.max_temp }}&#176;
+                                </h1>    
+                            </div>
+                            <div class="flex flex-row justify-center gap-x-1">
+                                <h1 
+                                    v-for="(param, index) in params" :key="index"
+                                    v-show="param.show" 
+                                    class="bg-slate-400 cursor-pointer mt-3 p-2 text-xs rounded-full text-white"
+                                >
+                                    {{ day[param.key] }}{{ param.unit }}
+                                </h1>  
+                            </div>
+                        </div>
+                    
 
-                    <div class="flex flex-row justify-center gap-x-3">
-                        <h1 class="mt-3 p-2 text-sm rounded bg-blue-400 text-white font-bold">
-                            {{ day.min_temp }}&#176;
-                        </h1>    
-                        <h1 class="mt-3 p-2 outline-double outline-offset-1 outline-blue-400 rounded text-white font-bold">
-                            {{ day.temp }}&#176; 
-                        </h1>    
-                        <h1 class="mt-3 p-2 text-sm rounded bg-red-400 text-white font-bold">
-                            {{ day.max_temp }}&#176;
-                        </h1>    
-                    </div>
-
-                    <div 
-                        v-for="(param, index) in params" :key="index"
-                        class="flex flex-row justify-center gap-x-1"
-                    >
-                        <h1 v-show="param.show" class="bg-slate-400 cursor-pointer mt-3 p-2 text-xs rounded-full text-white">
-                            {{ day[param.key] }}{{ param.unit }}
-                        </h1>  
-                    </div>
                 </div>
             </div>
         </div>
