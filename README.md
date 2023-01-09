@@ -1,4 +1,12 @@
 # sunnysky
 Simply app for one week weather forecast with GPS localization
 
-![image](https://user-images.githubusercontent.com/43533811/211296630-8426dc31-b559-4281-b232-2632142d0f20.png)
+
+![image](https://user-images.githubusercontent.com/43533811/211326981-d27c53aa-1d94-420d-bde6-ab1f85109a3f.png)
+
+
+Install:
+> git clone, npm install, npm run dev
+
+demo: 
+> sunnysky.fotopulse.cz
